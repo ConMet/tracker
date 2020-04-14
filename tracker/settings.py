@@ -127,7 +127,10 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "static"),
+    'homepage/static',
+    'projects/static',
+    'tracker/static',
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
