@@ -1,6 +1,5 @@
 body {
-    background: white url("background.gif") no-repeat;
+    background: white url("background.png") no-repeat;
     max-width: 100%;
     height:auto;
-    filter: grayscale(10%);
 }
