@@ -13,17 +13,22 @@ soup = BeautifulSoup(page.text, 'html.parser')
 soup2 = soup.find('div', {'class': 'fullContent'})
 for item in soup2.findAll('tbody'):
     data = re.sub(r'\n\s*\n', r'\n\n', item.get_text().strip(), flags=re.M)
-print(data)
-# Create lists corresponding to data above.
 
-# Regex for county names from cleaned data:
-county = re.findall(r"^\w*.+[a-zA-Z+]", data, re.MULTILINE)
-print(county)
+# Regex for all table data placed in an ordered list:
+# Removing spaces (ex. St Clair --> StClair) due to string method difficulty in future loop.
+dataList = re.findall(r"^\w*.+[a-zA-Z+]|\d+", data, re.MULTILINE)
+newDataList = [y.replace(' ', '') for y in dataList]
 
-
-# Regex for confirmed cases:
-all_nums = re.findall(r"\d+", data, re.MULTILINE)
-print(all_nums)
-
-
-# Regex for confirmed deaths:
+county, cases, deaths = [], [], []
+# Create index alongside the listed data created above.
+# Loop through and populate lists corresponding to the column they belong in.
+for index, x in enumerate(newDataList):
+    if x.isalpha():
+        county.append(x)
+        if newDataList[index-1].isnumeric() and newDataList[index-2].isalpha():
+            deaths.append('0')
+    if x.isnumeric():
+        if newDataList[index-1].isnumeric():
+            deaths.append(x)
+        elif newDataList[index-1].isalpha():
+            cases.append(x)
