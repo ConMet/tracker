@@ -74,12 +74,16 @@ WSGI_APPLICATION = 'tracker.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# AWS PostgreSQL DB instance
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '-',
+        'USER': 'connordb',
+        'PASSWORD': 'dxAq4WHoCIUCNN6kceom',
+        'HOST': 'database-1.cmq8tvpbjb4z.us-east-2.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -135,9 +139,3 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-# Heroku Postgres snippet
-
-DATABASES['default'] = dj_database_url.config(
-    conn_max_age=600, ssl_require=True)
