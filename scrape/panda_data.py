@@ -1,15 +1,19 @@
 import pandas as pd
 from scrape import *
+import datetime
+
+
+# ***Need to schedule scrape to call on a daily basis.***
 
 # Call scrape function to populate our columns
-county, cases, deaths = scrape()
+date, county, cases, deaths = scrape()
 
 # Create data frame
 df = pd.DataFrame(
-    {'Counties': county,
+    {'Date': date,
+     'Counties': county,
      'Cases': cases,
      'Deaths': deaths
      })
 
 print(df)
-df.to_csv('data.csv')

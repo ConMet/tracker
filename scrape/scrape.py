@@ -1,6 +1,7 @@
 import requests
-from bs4 import BeautifulSoup
 import re
+import datetime
+from bs4 import BeautifulSoup
 
 
 def scrape():
@@ -21,7 +22,7 @@ def scrape():
     dataList = re.findall(r"^\w*.+[a-zA-Z+]|\d+", data, re.MULTILINE)
     newDataList = [y.replace(' ', '') for y in dataList]
 
-    county, cases, deaths = [], [], []
+    date, county, cases, deaths = [], [], [], []
     # Create index alongside the listed data created above.
     # Loop through and populate lists corresponding to the column they belong in.
     for index, x in enumerate(newDataList):
@@ -35,4 +36,9 @@ def scrape():
             elif newDataList[index-1].isalpha():
                 cases.append(x)
 
-    return county, cases, deaths
+    # Loop for populating date column with date the data was scraped.
+    dateobj = datetime.datetime.now()
+    for z in county:
+        date.append(dateobj.strftime('%m/%d/%Y'))
+
+    return date, county, cases, deaths
