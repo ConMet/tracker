@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'tracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'connordb',
-        'PASSWORD': 'dxAq4WHoCIUCNN6kceom',
-        'HOST': 'database-1.cmq8tvpbjb4z.us-east-2.rds.amazonaws.com',
+        'NAME': 'connordb2',
+        'USER': 'connordb2',
+        'PASSWORD': 'v9Ks42el4Y3FWbTeCPKr',
+        'HOST': 'database-2.cmq8tvpbjb4z.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

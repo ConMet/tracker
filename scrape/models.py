@@ -6,3 +6,6 @@ class WebScrape(models.Model):
     counties = models.CharField(max_length=30)
     cases = models.CharField(max_length=30)
     deaths = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
