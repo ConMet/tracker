@@ -8,10 +8,10 @@ from bs4 import BeautifulSoup
 class Scrape():
 
     def __init__(self, date, county, cases, deaths):
-        self.date = date
-        self.county = county
-        self.cases = cases
-        self.deaths = deaths
+        self.date()
+        self.county()
+        self.cases()
+        self.deaths()
 
     def scrapedata():
         # Collect and parse page, make soup object.
@@ -50,8 +50,13 @@ class Scrape():
         dateobj = datetime.datetime.now()
         for z in county:
             date.append(dateobj.strftime('%m/%d/%Y'))
-
         return date, county, cases, deaths
+
+    def clean_scrape():
+        list_of_tuples = Scrape.scrapedata()
+        output = [list(elem) for elem in list_of_tuples]
+
+        return output
 
     def pandadata():
         date, county, cases, deaths = Scrape.scrapedata()
@@ -65,7 +70,8 @@ class Scrape():
         return df
 
 
-# Scrape.scrapedata()[0])    - Returns Date column
-# Scrape.scrapedata()[1])    - Returns Counties column
-# Scrape.scrapedata()[2])    - Returns Cases column
-# Scrape.scrapedata()[3])    - Returns Deaths column
+# print(Scrape.scrapedata()[0])  # - Returns Date column
+# Scrape.scrapedata()[1]    - Returns Counties column
+# Scrape.scrapedata()[2]    - Returns Cases column
+# Scrape.scrapedata()[3]    - Returns Deaths column
+# print(range(len(Scrape.clean_scrape())))

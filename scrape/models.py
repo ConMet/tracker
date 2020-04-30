@@ -1,6 +1,8 @@
 from django.db import models
 
 
+# In order to save to this model, use terminal command 'python manage.py savetodb'
+
 class WebScrape(models.Model):
     date = models.CharField(max_length=30)
     counties = models.CharField(max_length=30)
