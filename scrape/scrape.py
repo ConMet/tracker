@@ -54,7 +54,11 @@ class Scrape():
 
     def clean_scrape():
         list_of_tuples = Scrape.scrapedata()
-        output = [list(elem) for elem in list_of_tuples]
+        list_of_lists = [list(elem) for elem in list_of_tuples]
+
+        # Zipping data together into tuples for easier database entry.
+        output = list(
+            zip(list_of_lists[0], list_of_lists[1], list_of_lists[2], list_of_lists[3]))
 
         return output
 
@@ -70,8 +74,4 @@ class Scrape():
         return df
 
 
-# print(Scrape.scrapedata()[0])  # - Returns Date column
-# Scrape.scrapedata()[1]    - Returns Counties column
-# Scrape.scrapedata()[2]    - Returns Cases column
-# Scrape.scrapedata()[3]    - Returns Deaths column
-# print(range(len(Scrape.clean_scrape())))
+# print(Scrape.clean_scrape())
