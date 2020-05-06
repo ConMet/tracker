@@ -52,6 +52,7 @@ class Scrape():
             date.append(dateobj.strftime('%m/%d/%Y'))
         return date, county, cases, deaths
 
+    # Function that returns a data structure more easily iterable and saved to a database.
     def clean_scrape():
         list_of_tuples = Scrape.scrapedata()
         list_of_lists = [list(elem) for elem in list_of_tuples]
