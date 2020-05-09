@@ -16,4 +16,4 @@ class Command(BaseCommand):
                           cases=i[2], deaths=i[3])
             a.save()
 
-        self.stdout.write("Saving today's data to the database.", ending=" ")
+        self.stdout.write("Saving today's data to the database:", ending=" ")
