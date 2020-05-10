@@ -63,6 +63,7 @@ class Scrape():
 
         return output
 
+    # Function that returns a data frame of the data that was only just now scraped. Largely unused.
     def pandadata():
         date, county, cases, deaths = Scrape.scrapedata()
         # Create data frame
@@ -73,6 +74,3 @@ class Scrape():
              'Deaths': deaths
              })
         return df
-
-
-# print(Scrape.clean_scrape())

@@ -5,6 +5,7 @@ from scrape.scrape import *
 # This class may be instantiated via terminal command 'python manage.py savetodb'
 # Loops through cleaned scraped data (class seen in scrape.py),
 # and correctly appends to each corresponding column in the database.
+# This command is made somewhat irrelevant by the implementation of task scheduling.
 
 
 class Command(BaseCommand):
