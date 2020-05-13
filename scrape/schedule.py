@@ -28,18 +28,30 @@ def dataschedule():
     scheduler.start()
 
 
-#global job_frame
-
 # Registers the 'pulldata' job. This creates a schedule for pulling all data from the WebScrape
 # table in the database and returns a Pandas data frame of that data. The job itself is stored
 # in its own table in the database.
-@register_job(scheduler, 'cron', hour=1, minute=49, misfire_grace_time=None, max_instances=1)
+@register_job(scheduler, 'cron', hour=11, minute=33, misfire_grace_time=None, max_instances=1)
 def pulldata():
+
+    # Instantiate WebScrape model, this time taking live values from database
+    # and putting them back into a pandas dataframe.
     df = pd.DataFrame(list(WebScrape.objects.all().values()))
+
+    # Use to_numberic and to_datetime pandas methods for coercing cases, deaths,
+    # and date values to their proper data types (for use in plotting and analysis).
     df[['cases', 'deaths']] = df[['cases', 'deaths']].apply(pd.to_numeric)
+    df[['date']] = df[['date']].apply(pd.to_datetime)
+
+    # Homogenizing rows with daily totals.
+    df['counties'] = df['counties'].replace({'GrandTotal': 'Totals'})
+
+    # Makes a data frame consisting exclusively of daily totals.
+    totals = df.loc[df['counties'] == 'Totals']
+
     register_events(scheduler)
     sns.set(style="darkgrid")
-    sns.lineplot(x='date', y='cases', data=df)
+    sns.lineplot(x='date', y='cases', data=totals)
     plt.title('Test Plot')
     plt.show()
     return df
