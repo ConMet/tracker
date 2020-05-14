@@ -31,7 +31,7 @@ def dataschedule():
 # Registers the 'pulldata' job. This creates a schedule for pulling all data from the WebScrape
 # table in the database and returns a Pandas data frame of that data. The job itself is stored
 # in its own table in the database.
-@register_job(scheduler, 'cron', hour=11, minute=33, misfire_grace_time=None, max_instances=1)
+@register_job(scheduler, 'cron', hour=0, minute=10, misfire_grace_time=None, max_instances=1)
 def pulldata():
 
     # Instantiate WebScrape model, this time taking live values from database
@@ -49,11 +49,11 @@ def pulldata():
     # Makes a data frame consisting exclusively of daily totals.
     totals = df.loc[df['counties'] == 'Totals']
 
-    register_events(scheduler)
     sns.set(style="darkgrid")
-    sns.lineplot(x='date', y='cases', data=totals)
+    sns.barplot(x='date', y='cases', data=totals)
     plt.title('Test Plot')
     plt.show()
+    register_events(scheduler)
     return df
 
 
