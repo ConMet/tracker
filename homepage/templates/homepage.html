@@ -9,10 +9,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'homepage.css' %}">
 </head>>
 {% block page_content %}
+{% if graph %}
+{{ graph|safe }}
+{% else %}
+<p>No graph was provided.</p>
+{% endif %}
+{% endblock %}
 
 <body>
-    And again??
+
 </body>
-{% endblock %}
+
 
 </html>

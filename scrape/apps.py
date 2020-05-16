@@ -9,6 +9,3 @@ class ScrapeConfig(AppConfig):
         from scrape.schedule import scheduler
         if settings.SCHEDULER_AUTOSTART:
             scheduler.start()
-
-        '''import scrape.graphs
-        showdata()'''

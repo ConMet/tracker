@@ -5,10 +5,10 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from django.conf import settings
 from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
 from apscheduler.events import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
-import numpy as np
+'''import numpy as np
 from matplotlib import pyplot as plt
 import pandas as pd
-import seaborn as sns
+import seaborn as sns'''
 from datetime import date, datetime
 import time
 
@@ -31,13 +31,16 @@ def dataschedule():
 # Registers the 'pulldata' job. This creates a schedule for pulling all data from the WebScrape
 # table in the database and returns a Pandas data frame of that data. The job itself is stored
 # in its own table in the database.
-@register_job(scheduler, 'cron', hour=0, minute=10, misfire_grace_time=None, max_instances=1)
+
+# *** Decided this shouldn't be a scheduled task, but rather something that the user initiates via
+# a database query from the front-end. Making this a scheduled task muddles things and isn't optimal ***
+'''@register_job(scheduler, 'cron', hour=14, minute=45, misfire_grace_time=None, max_instances=1)
 def pulldata():
 
     # Instantiate WebScrape model, this time taking live values from database
     # and putting them back into a pandas dataframe.
     df = pd.DataFrame(list(WebScrape.objects.all().values()))
-
+    register_events(scheduler)
     # Use to_numberic and to_datetime pandas methods for coercing cases, deaths,
     # and date values to their proper data types (for use in plotting and analysis).
     df[['cases', 'deaths']] = df[['cases', 'deaths']].apply(pd.to_numeric)
@@ -53,8 +56,10 @@ def pulldata():
     sns.barplot(x='date', y='cases', data=totals)
     plt.title('Test Plot')
     plt.show()
-    register_events(scheduler)
-    return df
+    
+    plt.savefig(response, format="png")
+
+    return df'''
 
 
 print('Scrape scheduler running...')
