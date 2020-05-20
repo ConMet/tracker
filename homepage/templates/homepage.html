@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'homepage.css' %}">
+
 </head>>
 {% block page_content %}
 {% if graph %}
@@ -14,11 +14,21 @@
 {% else %}
 <p>No graph was provided.</p>
 {% endif %}
-{% endblock %}
+
 
 <body>
-
+    <div class="dropdown">
+        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
 </body>
-
+{% endblock %}
 
 </html>

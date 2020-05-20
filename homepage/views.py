@@ -10,7 +10,8 @@ import plotly.graph_objs as go
 import plotly.express as px
 
 
-def homepage(request):
+# This function exists to avoid redundancy in writing different views that have a similar purpose.
+def createdf():
     # Instantiate WebScrape model, taking live values from database
     # and putting them back into a pandas dataframe.
     df = pd.DataFrame(list(WebScrape.objects.all().values()))
@@ -23,15 +24,37 @@ def homepage(request):
     # Homogenizing rows with daily totals.
     df['counties'] = df['counties'].replace({'GrandTotal': 'Totals'})
 
+    return df
+
+
+# This view renders the default graph when on the website homepage.
+def homepage(request):
+    df = createdf()
+
     # Makes a data frame consisting exclusively of daily totals.
     totals = df.loc[df['counties'] == 'Totals']
-
-    #fig = go.Figure()
 
     plot = px.bar(totals, x='date', y='cases', barmode='group')
 
     graph = plot.to_html(
-        full_html=False, default_height=500, default_width=700)
+        full_html=False, default_height=500, default_width=800)
+    context = {'graph': graph}
+    response = render(request, 'homepage.html', context)
+
+    return response
+
+
+# This view renders a graph of deaths over time.
+def deathview(request):
+    df = createdf()
+
+    # Makes a data frame consisting of daily death totals.
+    death_totals = df.loc[df['counties'] == 'Totals']
+
+    plot = px.bar(death_totals, x='date', y='deaths', barmode='group')
+
+    graph = plot.to_html(
+        full_html=False, default_height=500, default_width=800)
     context = {'graph': graph}
     response = render(request, 'homepage.html', context)
 
