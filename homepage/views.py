@@ -34,7 +34,7 @@ def homepage(request):
     # Makes a data frame consisting exclusively of daily totals.
     totals = df.loc[df['counties'] == 'Totals']
 
-    plot = px.bar(totals, x='date', y='cases', barmode='group')
+    plot = px.line(totals, x='date', y='cases')
 
     graph = plot.to_html(
         full_html=False, default_height=500, default_width=800)
@@ -51,11 +51,11 @@ def deathview(request):
     # Makes a data frame consisting of daily death totals.
     death_totals = df.loc[df['counties'] == 'Totals']
 
-    plot = px.bar(death_totals, x='date', y='deaths', barmode='group')
+    plot = px.line(death_totals, x='date', y='deaths')
 
     graph = plot.to_html(
         full_html=False, default_height=500, default_width=800)
-    context = {'graph': graph}
+    context = {'deathgraph': deathgraph}
     response = render(request, 'homepage.html', context)
 
     return response
