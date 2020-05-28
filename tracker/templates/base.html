@@ -15,7 +15,9 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'background.css' %}">
 
-    {% block page_content %}{% endblock %}
+    {% block page_content %}
+    {% include 'path/to/your/header.html' %}
+    {% endblock %}
 
     <title></title>
 </head>
