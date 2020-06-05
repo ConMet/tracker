@@ -10,8 +10,7 @@
 </head>>
 
 {% block page_content %}
-{% if graph or deathgraph %}
-{{ deathgraph|safe }}
+{% if graph  %}
 {{ graph|safe }}
 {% else %}
 <p>No graph was provided.</p>
@@ -27,11 +26,7 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="{% url 'homepage'%}">Total Cases</a>
             <a class="dropdown-item" href="{% url 'deathview'%}">Total Deaths</a>
-            <form action='deathview' method='POST'>
-                <button class="dropdown-item" value="Click">
-                    Total Deaths not working
-                </button>
-            </form>
+            <a class="dropdown-item" href={{ deathgraph|safe }}>Total Deaths TEST</a>
             <a class="dropdown-item" href="{% url 'homepage'%}">Change in Cases per day</a>
             <a class="dropdown-item" href="#">Change in Deaths per day</a>
         </div>
